@@ -36,6 +36,16 @@ public class UserService extends BaseService<User> implements Jw27Constants {
 	public User getUserById(int userId) {
 		return super.getById(userId);
 	}
+	
+	public User getUserByName(String userName) {
+		String sql = "SELECT * FROM tbl_user WHERE name = '" + userName + "'";
+		List<User> users = super.executeNativeSql(sql);
+		if (users.size() > 0) {
+			return users.get(0);
+		} else {
+			return new User();
+		}
+	}
 
 	// Phương thức kiểm tra (1) file có được upload hay không?
 	public boolean isUploadFile(MultipartFile file) {

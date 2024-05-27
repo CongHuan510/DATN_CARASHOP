@@ -22,6 +22,8 @@
 </head>
 
 <body>
+	<form id="productSearchForm" action="${classpath }/product"
+				method="GET">
 	<!-- Header -->
 	<jsp:include page="/WEB-INF/views/frontend/layout/header.jsp"></jsp:include>
 
@@ -55,13 +57,11 @@
 	</section>
 
 	<section id="product1" style="text-align: left !important;">
-		<sf:form id="productSearchForm" action="${classpath }/product"
-			method="GET" modelAttribute="category" enctype="multipart/form-data">
-			<div class="container">
+
+		<div class="container">
+			
 				<div class="row">
-
 					<div class="col-lg-9 order-lg-last">
-
 						<div class="product1-content d-flex">
 							<div class="product1-title col-md-6"
 								style="padding-left: 0px !important;">
@@ -69,7 +69,7 @@
 								<c:forEach items="${categories}" var="category">
 									<c:if test="${productSearch.categoryId == category.id}">
 										<c:set var="categoryFound" value="true" />
-										<h2>${category.name} </h2>
+										<h2>${category.name}</h2>
 									</c:if>
 								</c:forEach>
 
@@ -80,12 +80,10 @@
 
 								</c:choose>
 							</div>
-
-							<div>
-								<input type="hidden" id="currentPage" name="currentPage"
-									class="form-control" value="${productSearch.currentPage }">
+							<div class="col-md-3 d-none">
+								<input id="currentPage" name="currentPage" class="form-control"
+									value="${productSearch.currentPage }" />
 							</div>
-
 							<div
 								class="product1-swap col-md-6 d-flex justify-content-end
                                 align-items-end"
@@ -127,7 +125,6 @@
 									</div>
 								</c:when>
 								<c:otherwise>
-
 									<c:forEach items="${products }" var="product" varStatus="loop">
 										<div class="col-sm-6 col-lg-4 ">
 											<div class="pro">
@@ -221,12 +218,18 @@
 
 					<div class="col-lg-3 search_filter mb-5">
 						<div class="sidebar mb-4">
+
+							<%-- <div class="col-md-3 d-none">
+							<input type="text" class="form-control" id="keyword"
+								name="keyword" placeholder="Tìm từ khóa"
+								value="${productSearch.keyword }" />
+						</div> --%>
 							<h4 class="text-uppercasse title">Danh Mục</h4>
 							<ul class="menu_sidebar">
 								<c:forEach items="${categories}" var="category">
 									<li><input type="checkbox" value="${category.id}"
 										name="categoryId" id="category_${category.id}"
-										<c:if test="${productSearch.categoryId == category.id}">checked</c:if>>
+										<c:if test="${productSearch.categoryId == category.id}">checked</c:if> />
 										<label for="category_${category.id}">${category.name}</label>
 										<%-- <a href="${classpath }/product/${category.id}">${category.name}</a> --%>
 									</li>
@@ -237,26 +240,26 @@
 							<h4 class="text-uppercasse title">Lọc theo giá</h4>
 							<!-- Các ô checkbox giá -->
 							<ul class="menu_sidebar filter">
+								<li><input type="checkbox" value="1" name="priceCheck"
+									id="priceCheck1"
+									<c:if test="${productSearch.priceCheck == 1}">checked</c:if> />
+									<label for="priceCheck1">100.000₫ - 200.000₫</label></li>
 								<li><input type="checkbox" value="2" name="priceCheck"
 									id="priceCheck2"
-									<c:if test="${productSearch.priceCheck == 1}">checked</c:if>>
-									<label for="priceCheck2">100.000₫ - 200.000₫</label></li>
+									<c:if test="${productSearch.priceCheck == 2}">checked</c:if> />
+									<label for="priceCheck2">200.000₫ - 300.000₫</label></li>
 								<li><input type="checkbox" value="3" name="priceCheck"
 									id="priceCheck3"
-									<c:if test="${productSearch.priceCheck == 2}">checked</c:if>>
-									<label for="priceCheck3">200.000₫ - 300.000₫</label></li>
+									<c:if test="${productSearch.priceCheck == 3}">checked</c:if> />
+									<label for="priceCheck3">300.000₫ - 500.000₫</label></li>
 								<li><input type="checkbox" value="4" name="priceCheck"
 									id="priceCheck4"
-									<c:if test="${productSearch.priceCheck == 3}">checked</c:if>>
-									<label for="priceCheck4">300.000₫ - 500.000₫</label></li>
+									<c:if test="${productSearch.priceCheck == 4}">checked</c:if> />
+									<label for="priceCheck4">500.000₫ - 1.000.000₫</label></li>
 								<li><input type="checkbox" value="5" name="priceCheck"
 									id="priceCheck5"
-									<c:if test="${productSearch.priceCheck == 4}">checked</c:if>>
-									<label for="priceCheck5">500.000₫ - 1.000.000₫</label></li>
-								<li><input type="checkbox" value="6" name="priceCheck"
-									id="priceCheck6"
-									<c:if test="${productSearch.priceCheck == 5}">checked</c:if>>
-									<label for="priceCheck6">Giá trên 1.000.000₫</label></li>
+									<c:if test="${productSearch.priceCheck == 5}">checked</c:if> />
+									<label for="priceCheck5">Giá trên 1.000.000₫</label></li>
 							</ul>
 						</div>
 						<div class="sidebar mt-4 mb-4">
@@ -265,24 +268,26 @@
 							<ul class="menu_sidebar filter">
 								<li><input type="checkbox" value="M" name="sizeCheck"
 									id="size_1"
-									<c:if test="${productSearch.sizeCheck == 'M'}">checked</c:if>>
+									<c:if test="${productSearch.sizeCheck == 'M'}">checked</c:if> />
 									<label for="size_1">M</label></li>
 								<li><input type="checkbox" value="L" name="sizeCheck"
 									id="size_2"
-									<c:if test="${productSearch.sizeCheck == 'L'}">checked</c:if>>
+									<c:if test="${productSearch.sizeCheck == 'L'}">checked</c:if> />
 									<label for="size_2">L</label></li>
 								<li><input type="checkbox" value="XL" name="sizeCheck"
 									id="size_3"
-									<c:if test="${productSearch.sizeCheck == 'XL'}">checked</c:if>>
+									<c:if test="${productSearch.sizeCheck == 'XL'}">checked</c:if> />
 									<label for="size_3">XL</label></li>
 								<li><input type="checkbox" value="XXL" name="sizeCheck"
 									id="size_4"
-									<c:if test="${productSearch.sizeCheck == 'XXL'}">checked</c:if>>
+									<c:if test="${productSearch.sizeCheck == 'XXL'}">checked</c:if> />
 									<label for="size_4">XXL</label></li>
 							</ul>
 						</div>
-						<button type="submit" class="normal">Lọc</button>
-						<a href="${classpath }/product" class="normal" type="reset">Bỏ lọc</a>
+						<button type="submit" id="btnSearch" name="btnSearch"
+							class="normal">Lọc</button>
+						<a href="${classpath }/product" class="normal" type="reset">Bỏ
+							lọc</a>
 						<div class="sidebar mt-4 mb-4">
 							<h4 class="text-uppercasse title">
 								<i class="fa-regular fa-clock"></i> Giờ cửa hàng
@@ -315,10 +320,11 @@
 					</div>
 
 				</div>
-			</div>
-		</sf:form>
-	</section>
+			
+		</div>
 
+	</section>
+</form>
 	<section id="newsletter" class="section-p1 section-m1">
 		<div class="container">
 			<div class="row">
@@ -430,19 +436,27 @@
 	<!-- pagination -->
 	<script type="text/javascript">
 		$( document ).ready(function() {
-			//$("#keyword").val(${productSearch.keyword}); 
-			//$("#sortOption").val(${productSearch.sortOption});			
+			//Dat gia tri cua status ung voi dieu kien search truoc do
+			//$("#status").val(${productSearch.status});
+			//Dat gia tri cua category ung voi dieu kien search truoc do
+			$("#categoryId").val(${productSearch.categoryId});
+			
+			//Dat gia tri cua category ung voi dieu kien search truoc do
+			//$("#keyword").val(${productSearch.keyword});
+			
 			$("#paging").pagination({
 				currentPage: ${productSearch.currentPage}, //Trang hien tai
 				items: ${productSearch.totalItems}, //Tong so san pham (total products)
-				itemsOnPage: ${productSearch.sizeOfPage}, // số sản phẩm trên 1 trang
+				itemsOnPage: ${productSearch.sizeOfPage},
 				cssStyle: 'light-theme',
 				onPageClick: function(pageNumber, event) {
+					
 					$('#currentPage').val(pageNumber);
-					$('#productSearchForm').submit();
+					$('#btnSearch').trigger('click');
+					
 				},
 			});
 		});
 	</script>
-	</body>
+</body>
 </html>

@@ -108,15 +108,15 @@
 										<div class="pro-price">
 											<c:choose>
 												<c:when test="${f.product.salePrice > 0}">
-													<span class="new-price"> $ <fmt:formatNumber
+													<span class="new-price"><fmt:formatNumber
 															value="${f.product.salePrice }" pattern="#,##0₫"/>
 													</span>
-													<span class="old-price"> $ <fmt:formatNumber
+													<span class="old-price"><fmt:formatNumber
 															value="${f.product.price }" pattern="#,##0₫"/>
 													</span>
 												</c:when>
 												<c:otherwise>
-													<span class="default-price"> $ <fmt:formatNumber
+													<span class="default-price"><fmt:formatNumber
 															value="${f.product.price }" pattern="#,##0₫"/>
 													</span>
 												</c:otherwise>

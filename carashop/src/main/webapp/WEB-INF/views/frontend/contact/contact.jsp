@@ -16,10 +16,9 @@
 </head>
 
 <body>
-	<!-- Toast -->
-	<jsp:include page="/WEB-INF/views/frontend/layout/toast.jsp"></jsp:include>
 	<!-- Header -->
 	<jsp:include page="/WEB-INF/views/frontend/layout/header.jsp"></jsp:include>
+
 	<section id="page-header" class="about-header">
 		<div class="container">
 			<h2>#Hãy_nói chuyện</h2>
@@ -31,8 +30,10 @@
 			<div class="row">
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="${classpath }/index">Trang chủ</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Liên hệ</li>
+						<li class="breadcrumb-item"><a href="${classpath }/index">Trang
+								chủ</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Liên
+							hệ</li>
 					</ol>
 				</nav>
 			</div>
@@ -43,7 +44,8 @@
 			<div class="row">
 				<div class="col-12 col-md-6 details">
 					<span>LIÊN LẠC</span>
-					<h2>Hãy ghé thăm một trong các địa điểm đại lý của chúng tôi hoặc liên hệ với chúng tôi ngay hôm nay</h2>
+					<h2>Hãy ghé thăm một trong các địa điểm đại lý của chúng tôi
+						hoặc liên hệ với chúng tôi ngay hôm nay</h2>
 					<h3>Trụ sở chính</h3>
 					<ul>
 						<li><i class="fa-regular fa-map"></i>
@@ -75,15 +77,15 @@
 							<form action="/contact-send" method="post">
 								<span>ĐỂ LẠI LỜI NHẮN</span>
 								<h2>Chúng tôi thích nghe từ bạn</h2>
-								<input type="text" placeholder="Họ và tên" 
-									id="txtName" name="txtName" value="${loginedUser.name }"/> 
-								<input type="email" placeholder="Email" 
-									id="txtEmail" name="txtEmail" value="${loginedUser.email }"/> 
-								<input type="text" placeholder="Số điện thoại" 
-									id="txtMobile" name="txtMobile" value="${loginedUser.mobile }"/> 
-								<input type="text" placeholder="Địa chỉ" 
-									id="txtAddress" name="txtAddress" value="${loginedUser.address }"/>
-								<textarea cols="30" rows="10" placeholder="Tin nhắn" 
+								<input type="text" placeholder="Họ và tên" id="txtName"
+									name="txtName" value="${loginedUser.name }" /> <input
+									type="email" placeholder="Email" id="txtEmail" name="txtEmail"
+									value="${loginedUser.email }" /> <input type="text"
+									placeholder="Số điện thoại" id="txtMobile" name="txtMobile"
+									value="${loginedUser.mobile }" /> <input type="text"
+									placeholder="Địa chỉ" id="txtAddress" name="txtAddress"
+									value="${loginedUser.address }" />
+								<textarea cols="30" rows="10" placeholder="Tin nhắn"
 									id="txtMessage" name="txtMessage"></textarea>
 								<button type="button" class="normal" onclick="_notification()">Gửi</button>
 							</form>
@@ -126,8 +128,8 @@
 					<div class="newstext">
 						<h4>Đăng ký để nhận Bản Tin</h4>
 						<p>
-							Nhận thông tin cập nhật qua Email về cửa hàng mới nhất của chúng tôi và 
-							<span>ưu đãi đặc biệt.</span>
+							Nhận thông tin cập nhật qua Email về cửa hàng mới nhất của chúng
+							tôi và <span>ưu đãi đặc biệt.</span>
 						</p>
 					</div>
 
@@ -145,52 +147,54 @@
 
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/frontend/layout/footer.jsp"></jsp:include>
-	
+	<!-- Toast -->
+	<jsp:include page="/WEB-INF/views/frontend/layout/toast.jsp"></jsp:include>
 	<!-- Js -->
 	<jsp:include page="/WEB-INF/views/frontend/layout/js.jsp"></jsp:include>
-	
+
 	<script type="text/javascript">
 		function _notification() {
 			//javascript object
 			let data = {
-				
+
 				txtName : jQuery("#txtName").val(),
 				txtEmail : jQuery("#txtEmail").val(), //Get by Id
 				txtMobile : jQuery("#txtMobile").val(),
 				txtAddress : jQuery("#txtAddress").val(),
 				txtMessage : jQuery("#txtMessage").val(),
-				
+
 			};
-			
+
 			//$ === jQuery
 			jQuery.ajax({
 				url : "/contact-send",
 				type : "POST",
-				contentType: "application/json",
+				contentType : "application/json",
 				data : JSON.stringify(data),
 				dataType : "json", //Kieu du lieu tra ve tu controller la json
-				
+
 				success : function(jsonResult) {
 					//alert(jsonResult.code + ": " + jsonResult.message);
 					//$("#notification").html(jsonResult.message);
 					// Xóa các giá trị trong các trường của form	
 					if (jsonResult.errorMessage) {
-		                $('.toast-body-error').html(jsonResult.errorMessage);
-		                $('.toast-error').toast('show');
-		            } else {
-		                $('.toast-body-success').html(jsonResult.message);
-		                $('.toast-success').toast('show');
-		                $('#txtName').val('');
+						$('.toast-body-error').html(jsonResult.errorMessage);
+						$('.toast-error').toast('show');
+					} else {
+						$('.toast-body-success').html(jsonResult.message);
+						$('.toast-success').toast('show');
+						$('#txtName').val('');
 						$('#txtMobile').val('');
 						$('#txtEmail').val('');
 						$('#txtAddress').val('');
 						$('#txtMessage').val('');
-		            }
+					}
 				},
-				
+
 				error : function(jqXhr, textStatus, errorMessage) {
-					 $('.toast-body-error').html('Đã có lỗi xảy ra: ' + errorMessage);
-			         $('.toast-error').toast('show');
+					$('.toast-body-error').html(
+							'Đã có lỗi xảy ra: ' + errorMessage);
+					$('.toast-error').toast('show');
 				}
 			});
 		}

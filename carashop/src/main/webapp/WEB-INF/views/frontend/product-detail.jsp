@@ -21,11 +21,10 @@
 </head>
 
 <body>
-	<!-- Toast -->
-	<jsp:include page="/WEB-INF/views/frontend/layout/toast.jsp"></jsp:include>
-	<!-- Header -->
-	<jsp:include page="/WEB-INF/views/frontend/layout/header.jsp"></jsp:include>
-
+	<form method="GET">
+		<!-- Header -->
+		<jsp:include page="/WEB-INF/views/frontend/layout/header.jsp"></jsp:include>
+	</form>
 	<section class="section-m1" style="margin-bottom: 0px;">
 		<div class="container">
 			<div class="row">
@@ -91,15 +90,12 @@
 									<c:set var="fullStars" value="${aveRating / 2}" />
 									<c:set var="fullStarsInt" value="${fullStars - fullStars % 1}" />
 									<c:set var="hasHalfStar" value="${fullStars % 1 != 0}" />
-
 									<c:forEach var="i" begin="1" end="${fullStarsInt}">
 										<i class="fas fa-star" style="color: #ffb800;"></i>
 									</c:forEach>
-
 									<c:if test="${hasHalfStar}">
 										<i class="fas fa-star-half-alt" style="color: #ffb800;"></i>
 									</c:if>
-
 									<c:forEach var="i"
 										begin="${fullStarsInt + (hasHalfStar ? 1 : 0)}" end="4">
 										<i class="fas fa-star" style="color: #ccc;"></i>
@@ -123,15 +119,16 @@
 										</span>
 									</c:when>
 									<c:otherwise>
-										<span class="default-price"> $ <fmt:formatNumber
-												value="${product.price }" pattern="#,##0₫" />
-										</span>
+										<span class="default-price"><fmt:formatNumber
+												value="${product.price }" pattern="#,##0₫" /> </span>
 									</c:otherwise>
 								</c:choose>
 							</div>
-							<h4 class="pt-3">Thông tin sản phẩm</h4>
-							<p class="short-description">${product.shortDescription }</p>
-							<ul class="product-list">
+							<c:if test="${ not empty product.shortDescription }">
+								<h4 class="pt-3">Thông tin sản phẩm</h4>
+								<p class="short-description">${product.shortDescription }</p>
+							</c:if>
+							<ul class="product-list mt-3">
 								<li class="list-item d-flex align-items-center"><i
 									class="fa-solid fa-crown"></i> Bảo hành thương hiệu Al Jazeera
 									1 năm</li>
@@ -149,11 +146,10 @@
 									</p>
 								</div>
 
-								<div>
+								<div class="detail-size-image">
 									<!-- Button trigger modal -->
-									<a role="button" class="size-button"
-										data-toggle="modal" data-target="#exampleModal">
-										Hướng dẫn chọn size</a>
+									<a role="button" class="size-button" data-toggle="modal"
+										data-target="#exampleModal"> Hướng dẫn chọn size</a>
 
 									<!-- Modal -->
 									<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -161,16 +157,21 @@
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel">Chọn cỡ size của bạn</h5>
+													<h5 class="modal-title" id="exampleModalLabel">Chọn cỡ
+														size của bạn</h5>
 													<button type="button" class="close" data-dismiss="modal"
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
 												<div class="modal-body">
-													<p style="text-align: center;"><img alt="chọn size" src="//bizweb.dktcdn.net/100/491/897/files/ao-somi-784bed513c634373862666a1.png?v=1694097281346"></p>
-													<div class="bangsize-des">97% khách hàng của chúng tôi đã chọn đúng size theo bảng này</div>
-												</div>	
+													<p style="text-align: center;">
+														<img alt="chọn size"
+															src="//bizweb.dktcdn.net/100/491/897/files/ao-somi-784bed513c634373862666a1.png?v=1694097281346">
+													</p>
+													<div class="bangsize-des">97% khách hàng của chúng
+														tôi đã chọn đúng size theo bảng này</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -221,7 +222,7 @@
 					<div class="tab-content" id="nav-tabContent">
 						<div class="tab-pane fade show pt-3 active" id="nav-comment"
 							role="tabpanel" aria-labelledby="nav-comment-tab">
-							<div class="reviews-container mb-5">
+							<div class="reviews-container mb-3">
 								<form id="paginationForm"
 									action="${classpath}/product-detail/${product.id}" method="get">
 									<input type="hidden" id="currentPage" name="currentPage"
@@ -336,22 +337,22 @@
 						<div class="tab-pane fade pt-3" id="nav-detail-des"
 							role="tabpanel" aria-labelledby="nav-detail-info-tab">
 							<c:choose>
-										<c:when test="${not empty product.detailDescription}">
+								<c:when test="${not empty product.detailDescription}">
 											${product.detailDescription }
 										</c:when>
-										<c:otherwise>
-										<div class="alert alert-warning alert-dismissible fade show"
-												role="alert">
-												Thông tin chi tiết sản phẩm đang được cập nhật.
-												<button type="button" class="close" data-dismiss="alert"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-										</c:otherwise>
-										</c:choose>
-							
-							</div>
+								<c:otherwise>
+									<div class="alert alert-warning alert-dismissible fade show"
+										role="alert">
+										Thông tin chi tiết sản phẩm đang được cập nhật.
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								</c:otherwise>
+							</c:choose>
+
+						</div>
 
 
 					</div>
@@ -363,10 +364,10 @@
 
 	<section id="product1" class="section-p1">
 		<div class="container">
-			
-				<h2>Sản phẩm liên quan</h2>
-				<div class="row autoplay">
-<c:forEach items="${products }" var="product" varStatus="loop">
+
+			<h2>Sản phẩm liên quan</h2>
+			<div class="row autoplay">
+				<c:forEach items="${products }" var="product" varStatus="loop">
 					<div class="col-12 col-sm-6 col-lg-4 col-xl-3 ">
 						<div class="pro">
 							<div class="pro-banner">
@@ -419,17 +420,14 @@
 								<div class="pro-price">
 									<c:choose>
 										<c:when test="${product.salePrice > 0}">
-											<span class="new-price"> $ <fmt:formatNumber
-													value="${product.salePrice }" pattern="#,##0₫" />
-											</span>
-											<span class="old-price"> $ <fmt:formatNumber
-													value="${product.price }" pattern="#,##0₫" />
-											</span>
+											<span class="new-price"><fmt:formatNumber
+													value="${product.salePrice }" pattern="#,##0₫" /> </span>
+											<span class="old-price"><fmt:formatNumber
+													value="${product.price }" pattern="#,##0₫" /> </span>
 										</c:when>
 										<c:otherwise>
-											<span class="default-price"> $ <fmt:formatNumber
-													value="${product.price }" pattern="#,##0₫" />
-											</span>
+											<span class="default-price"><fmt:formatNumber
+													value="${product.price }" pattern="#,##0₫" /> </span>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -442,9 +440,9 @@
 							</a>
 						</div>
 					</div>
-</c:forEach>
-				</div>
-			
+				</c:forEach>
+			</div>
+
 		</div>
 	</section>
 	<section id="newsletter" class="section-p1 section-m1">
@@ -475,7 +473,8 @@
 
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/frontend/layout/footer.jsp"></jsp:include>
-
+	<!-- Toast -->
+	<jsp:include page="/WEB-INF/views/frontend/layout/toast.jsp"></jsp:include>
 	<!-- Js -->
 	<jsp:include page="/WEB-INF/views/frontend/layout/js.jsp"></jsp:include>
 

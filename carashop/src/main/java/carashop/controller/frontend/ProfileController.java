@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import carashop.controller.BaseController;
+import carashop.dto.EnumStatus;
 import carashop.model.User;
 import carashop.service.UserService;
 
@@ -53,7 +54,7 @@ public class ProfileController extends BaseController {
 	public String editSave(final Model model, @ModelAttribute("currentUser") User currentUser,
 			@RequestParam("avatarFile") MultipartFile avatarFile
 			, HttpSession session) throws IOException {
-		
+				currentUser.setStatus(EnumStatus.ACTIVE);
 		userService.saveProfile(currentUser, avatarFile);
 		session.setAttribute("message", "Cập nhật thông tin cá nhân thành công!");
 		 return "redirect:/profile";

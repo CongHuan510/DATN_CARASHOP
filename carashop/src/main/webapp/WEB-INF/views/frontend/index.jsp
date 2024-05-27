@@ -21,9 +21,11 @@
 </head>
 
 <body>
+<form 
+				method="GET">
 	<!-- Header -->
 	<jsp:include page="/WEB-INF/views/frontend/layout/header.jsp"></jsp:include>
-
+</form>
 	<section id="hero">
 		<div class="container">
 			<h4>Ưu đãi trao đổi</h4>

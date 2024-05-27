@@ -88,8 +88,10 @@ public class SaleOrderProductService extends BaseService<SaleOrderProduct>{
         // Triển khai truy vấn SQL để lấy ra các sản phẩm bán chạy nhất
         String sql = "SELECT p.id, p.name, p.avatar, SUM(sop.quantity) AS quantity " +
                      "FROM tbl_sale_order_product sop " +
+                     "JOIN tbl_sale_order so ON sop.sale_order_id = so.id " +
                      "JOIN tbl_product p ON sop.product_id = p.id " +
-                     "GROUP BY p.id " +
+                     "WHERE so.status = 'DELIVERED' " +
+                     "GROUP BY p.id, p.name, p.avatar " +
                      "ORDER BY quantity DESC LIMIT 5";
 
         // Thực thi truy vấn và chuyển đổi kết quả thành danh sách các đối tượng Product
@@ -107,6 +109,7 @@ public class SaleOrderProductService extends BaseService<SaleOrderProduct>{
 
         return topSellingProducts;
     }
+
   
     @Autowired
     private ProductCommentService productCommentService;

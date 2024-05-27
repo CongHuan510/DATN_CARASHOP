@@ -23,7 +23,9 @@
 <jsp:include page="/WEB-INF/views/frontend/layout/css.jsp"></jsp:include>
 </head>
 <body>
-
+	<!-- Header -->
+	<jsp:include page="/WEB-INF/views/frontend/layout/header.jsp"></jsp:include>
+	
 	<section class="payment-return">
 		<div class="container">
 			<div class="row justify-content-center">
@@ -56,5 +58,10 @@
 			</div>
 		</div>
 	</section>
+	
+	<!-- Footer -->
+	<jsp:include page="/WEB-INF/views/frontend/layout/footer.jsp"></jsp:include>
+	<!-- Js -->
+	<jsp:include page="/WEB-INF/views/frontend/layout/js.jsp"></jsp:include>
 </body>
 </html>

@@ -80,8 +80,6 @@ public class ProductCommentController extends BaseController implements Jw27Cons
 		List<Product> products = productService.findAllProductByCategory(category.getId(), productId);
 		model.addAttribute("products", products);
 		
-		
-		
 		List<BigDecimal> discounts = calculateDiscounts(products);
 		model.addAttribute("discounts", discounts);
 
@@ -201,7 +199,6 @@ public class ProductCommentController extends BaseController implements Jw27Cons
 	                return null;
 	            }
 	        } else {
-     
 	            return null;
 	        }
 	    } else {

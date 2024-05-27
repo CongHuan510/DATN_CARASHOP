@@ -182,7 +182,6 @@ public class BaseController {
     public boolean isSuperAdmin() {
         // Lấy thông tin người dùng hiện tại từ Spring Security
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         if (authentication != null && authentication.isAuthenticated()) {
             // Kiểm tra xem người dùng có thuộc quyền SuperAdmin hay không
             for (GrantedAuthority authority : authentication.getAuthorities()) {
@@ -191,7 +190,6 @@ public class BaseController {
                 }
             }
         }
-
         return false;
     }
 }

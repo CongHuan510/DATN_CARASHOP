@@ -96,7 +96,7 @@ public class SaleOrderService extends BaseService<SaleOrder> {
 
 		for (int i = 1; i <= 12; i++) {
 			BigDecimal revenue = (BigDecimal) entityManager.createNativeQuery(
-					"SELECT COALESCE(SUM(total), 0) FROM tbl_sale_order WHERE  YEAR(create_date) = :year AND MONTH(create_date) = :month")
+					"SELECT COALESCE(SUM(total), 0) FROM tbl_sale_order WHERE status='DELIVERED' AND  YEAR(create_date) = :year AND MONTH(create_date) = :month")
 					.setParameter("year", year).setParameter("month", i).getSingleResult();
 			dashboardRevenue.add(revenue);
 		}
@@ -118,15 +118,19 @@ public class SaleOrderService extends BaseService<SaleOrder> {
 
 	// Hàm trả về list số lượng các sản phẩm đã bán trong năm hiện tại theo tháng
 	public List<BigDecimal> getProductByMonths(int year) {
-		List<BigDecimal> dashboardProduct = new ArrayList<>();
+	    List<BigDecimal> dashboardProduct = new ArrayList<>();
 
-		for (int i = 1; i <= 12; i++) {
-			BigDecimal productCount = (BigDecimal) entityManager.createNativeQuery(
-					"SELECT COALESCE(SUM(quantity), 0) FROM tbl_sale_order_product WHERE status = 'ACTIVE' AND YEAR(create_date) = :year AND MONTH(create_date) = :month")
-					.setParameter("year", year).setParameter("month", i).getSingleResult();
-			dashboardProduct.add(productCount);
-		}
-		return dashboardProduct;
+	    for (int i = 1; i <= 12; i++) {
+	        BigDecimal productCount = (BigDecimal) entityManager.createNativeQuery(
+	            "SELECT COALESCE(SUM(sop.quantity), 0) " +
+	            "FROM tbl_sale_order so " +
+	            "JOIN tbl_sale_order_product sop ON so.id = sop.sale_order_id " +
+	            "WHERE so.status = 'DELIVERED' AND YEAR(so.create_date) = :year AND MONTH(so.create_date) = :month")
+	            .setParameter("year", year).setParameter("month", i).getSingleResult();
+	        dashboardProduct.add(productCount);
+	    }
+	    return dashboardProduct;
 	}
+
 
 }

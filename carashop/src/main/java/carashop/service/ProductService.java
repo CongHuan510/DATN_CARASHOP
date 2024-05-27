@@ -242,8 +242,7 @@ public class ProductService extends BaseService<Product> implements Jw27Constant
 		if (!StringUtils.isEmpty(productSearch.getKeyword())) {
 			String keyword = productSearch.getKeyword().toLowerCase();
 
-			sql += " AND (LOWER(p.name) like '%" + keyword + "%'" + " OR LOWER(p.short_description) like '%" + keyword
-					+ "%'" + " OR LOWER(p.seo) like '%" + keyword + "%')";
+			sql += " AND (LOWER(p.name) like '%" + keyword + "%')";
 		}
 
 		// Checkbox giá từ minPrice đến maxPrice
@@ -291,24 +290,26 @@ public class ProductService extends BaseService<Product> implements Jw27Constant
 
 		// Sắp xếp sản phẩm theo tùy chọn
 		if (productSearch.getSortOption() != null && !productSearch.getSortOption().isEmpty()) {
-			switch (productSearch.getSortOption()) {
-			case "nameASC": // Sắp xếp theo tên tăng dần
-				sql += " ORDER BY LOWER(p.name) COLLATE utf8mb4_unicode_ci ASC";
-				break;
-			case "nameDESC": // Sắp xếp theo tên giảm dần
-				sql += " ORDER BY LOWER(p.name) COLLATE utf8mb4_unicode_ci DESC";
-				break;
-			case "priceASC": // Sắp xếp theo giá tăng dần
-				sql += " ORDER BY p.price ASC";
-				break;
-			case "priceDESC": // Sắp xếp theo giá giảm dần
-				sql += " ORDER BY p.price DESC";
-				break;
-			default:
-				break;
-			}
+		    switch (productSearch.getSortOption()) {
+		        case "nameASC": // Sắp xếp theo tên tăng dần
+		            sql += " ORDER BY LOWER(p.name) COLLATE utf8mb4_unicode_ci ASC";
+		            break;
+		        case "nameDESC": // Sắp xếp theo tên giảm dần
+		            sql += " ORDER BY LOWER(p.name) COLLATE utf8mb4_unicode_ci DESC";
+		            break;
+		        case "priceASC": // Sắp xếp theo giá tăng dần
+		            sql += " ORDER BY p.price ASC";
+		            break;
+		        case "priceDESC": // Sắp xếp theo giá giảm dần
+		            sql += " ORDER BY p.price DESC";
+		            break;
+		        default:
+		            sql += " ORDER BY p.create_date DESC"; // Điều kiện mặc định
+		            break;
+		    }
+		} else {
+		    sql += " ORDER BY p.create_date DESC";
 		}
-		sql += " ORDER BY p.create_date DESC";
 		return super.executeNativeSql(sql);
 	}
 	

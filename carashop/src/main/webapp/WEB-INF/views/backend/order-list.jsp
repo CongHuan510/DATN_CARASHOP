@@ -77,17 +77,19 @@
 															<select class="form-control" id="status" name="status">
 																<option value="ALL">Tất cả đơn hàng</option>
 																<option value="PENDING_PROCESSING"
-																	<c:if test="${saleOrderSearch.status == 'PENDING_PROCESSING'}">selected</c:if>>Đơn
-																	hàng chờ xử lý</option>
+																	<c:if test="${saleOrderSearch.status == 'PENDING_PROCESSING'}">selected</c:if>>Chờ xác nhận</option>
 																<option value="PROCESSED"
-																	<c:if test="${saleOrderSearch.status == 'PROCESSED'}">selected</c:if>>Đơn
-																	hàng đã xử lý</option>
+																	<c:if test="${saleOrderSearch.status == 'PROCESSED'}">selected</c:if>>Đã xác nhận</option>
 																<option value="ON_DELIVERY"
-																	<c:if test="${saleOrderSearch.status == 'ON_DELIVERY'}">selected</c:if>>Đơn
-																	hàng đã giao</option>
+																	<c:if test="${saleOrderSearch.status == 'ON_DELIVERY'}">selected</c:if>>Đang giao hàng</option>
 																<option value="DELIVERED"
-																	<c:if test="${saleOrderSearch.status == 'DELIVERED'}">selected</c:if>>Đơn
-																	hàng chưa giao</option>
+																	<c:if test="${saleOrderSearch.status == 'DELIVERED'}">selected</c:if>>Đã giao hàng</option>
+																	<option value="PAID"
+																	<c:if test="${saleOrderSearch.status == 'PAID'}">selected</c:if>>Đã thanh toán</option>
+																	<option value="UNPAID"
+																	<c:if test="${saleOrderSearch.status == 'UNPAID'}">selected</c:if>>Chưa thanh toán</option>
+																	<option value="CANCELED"
+																	<c:if test="${saleOrderSearch.status == 'CANCELED'}">selected</c:if>>Hủy đơn hàng</option>
 															</select>
 														</div>
 													</div>

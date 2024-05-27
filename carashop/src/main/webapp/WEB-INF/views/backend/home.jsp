@@ -5,7 +5,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%-- Import Java classes --%>
+<%@ page import="java.util.Calendar"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,7 +56,7 @@
 										<strong>Thống kê</strong>
 									</h1>
 									<div class="col-sm-6">
-										<div class="card">
+										<div class="card" style="height: 195px;">
 											<div class="card-body">
 
 												<div class="row">
@@ -72,7 +73,7 @@
 												<h1 class="mt-1 mb-3">${totalProducts }</h1>
 											</div>
 										</div>
-										<div class="card">
+										<div class="card" style="height: 195px;">
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
@@ -90,7 +91,7 @@
 										</div>
 									</div>
 									<div class="col-sm-6">
-										<div class="card">
+										<div class="card" style="height: 195px;">
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
@@ -108,7 +109,7 @@
 												</h1>
 											</div>
 										</div>
-										<div class="card">
+										<div class="card" style="height: 195px;">
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
@@ -130,70 +131,84 @@
 						</div>
 
 						<div class="col-xl-6 col-xxl-7">
-							<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-								<li class="nav-item" role="presentation">
-									<button class="nav-link active" id="pills-home-tab"
-										data-bs-toggle="pill" data-bs-target="#pills-home"
-										type="button" role="tab" aria-controls="pills-home"
-										aria-selected="true">Thống kê doanh thu</button>
-								</li>
-								<li class="nav-item" role="presentation">
-									<button class="nav-link" id="pills-profile-tab"
-										data-bs-toggle="pill" data-bs-target="#pills-profile"
-										type="button" role="tab" aria-controls="pills-profile"
-										aria-selected="false">Thống kê đơn hàng</button>
-								</li>
-								<li class="nav-item" role="presentation">
-									<button class="nav-link" id="pills-contact-tab"
-										data-bs-toggle="pill" data-bs-target="#pills-contact"
-										type="button" role="tab" aria-controls="pills-contact"
-										aria-selected="false">Thống kê sản phẩm đã bán</button>
-								</li>
-							</ul>
-							<div class="tab-content" id="pills-tabContent">
-								<div class="tab-pane fade show active" id="pills-home"
-									role="tabpanel" aria-labelledby="pills-home-tab">
-									<div class="card flex-fill w-100">
-										<div class="card-header">
-
-											<h5 class="card-title mb-0">Thống kê doanh thu</h5>
+							<form method="get" class="mb-4">
+								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+									<li class="nav-item" role="presentation">
+										<button class="nav-link active" id="pills-home-tab"
+											data-bs-toggle="pill" data-bs-target="#pills-home"
+											type="button" role="tab" aria-controls="pills-home"
+											aria-selected="true">Thống kê doanh thu</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="pills-profile-tab"
+											data-bs-toggle="pill" data-bs-target="#pills-profile"
+											type="button" role="tab" aria-controls="pills-profile"
+											aria-selected="false">Thống kê đơn hàng</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="pills-contact-tab"
+											data-bs-toggle="pill" data-bs-target="#pills-contact"
+											type="button" role="tab" aria-controls="pills-contact"
+											aria-selected="false">Thống kê sản phẩm đã bán</button>
+									</li>
+								</ul>
+								<!-- Filter Form -->
+								<div class="row mb-3">
+									<div class="col-md-3">
+										<label for="year" class="form-label">Năm</label> <select
+											id="year" name="year" class="custom-select">
+											<c:forEach var="i" begin="2020" end="2030">
+												<option value="${i}">${i}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="col-md-2 d-flex align-items-end">
+										<button type="submit" class="btn btn-primary">Lọc</button>
+									</div>
+								</div>
+								<div class="tab-content" id="pills-tabContent">
+									<div class="tab-pane fade show active" id="pills-home"
+										role="tabpanel" aria-labelledby="pills-home-tab">
+										<div class="card flex-fill w-100">
+											<div class="card-header d-flex">
+												<h5 class="card-title mb-0 col-md-7">Thống kê doanh thu</h5>
+											</div>
+											<div class="card-body py-3">
+												<div class="chart chart-sm">
+													<canvas id="chartjs-dashboard-revenue"></canvas>
+												</div>
+											</div>
 										</div>
-										<div class="card-body py-3">
-											<div class="chart chart-sm">
-												<canvas id="chartjs-dashboard-revenue"></canvas>
+									</div>
+									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
+										aria-labelledby="pills-profile-tab">
+										<div class="card flex-fill w-100">
+											<div class="card-header d-flex">
+												<h5 class="card-title mb-0 col-md-7">Thống kê đơn hàng</h5>
+											</div>
+											<div class="card-body py-3">
+												<div class="chart chart-sm">
+													<canvas id="chartjs-dashboard-order"></canvas>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
+										aria-labelledby="pills-contact-tab">
+										<div class="card flex-fill w-100">
+											<div class="card-header d-flex">
+												<h5 class="card-title mb-0 col-md-7">Thống kê sản phẩm
+													đã bán</h5>
+											</div>
+											<div class="card-body py-3">
+												<div class="chart chart-sm">
+													<canvas id="chartjs-dashboard-product"></canvas>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="tab-pane fade" id="pills-profile" role="tabpanel"
-									aria-labelledby="pills-profile-tab">
-									<div class="card flex-fill w-100">
-										<div class="card-header">
-
-											<h5 class="card-title mb-0">Thống kê đơn hàng</h5>
-										</div>
-										<div class="card-body py-3">
-											<div class="chart chart-sm">
-												<canvas id="chartjs-dashboard-order"></canvas>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="tab-pane fade" id="pills-contact" role="tabpanel"
-									aria-labelledby="pills-contact-tab">
-									<div class="card flex-fill w-100">
-										<div class="card-header">
-
-											<h5 class="card-title mb-0">Thống kê sản phẩm đã bán</h5>
-										</div>
-										<div class="card-body py-3">
-											<div class="chart chart-sm">
-												<canvas id="chartjs-dashboard-product"></canvas>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							</form>
 						</div>
 					</div>
 
@@ -222,14 +237,13 @@
 											<tr>
 												<td>${loop.index + 1}</td>
 												<!-- Số thứ tự -->
-												<td >${product.name}</td>
+												<td>${product.name}</td>
 												<!-- Tên sản phẩm -->
-												<td ><img width="40px"
-													height="40px"
+												<td><img width="40px" height="40px"
 													src="${classpath}/FileUploads/${product.avatar}"
 													alt="${product.name} Image"></td>
 												<!-- Hình ảnh -->
-												<td >${product.productQuantity}</td>
+												<td>${product.productQuantity}</td>
 												<!-- Số lượng đã bán -->
 											</tr>
 										</c:forEach>

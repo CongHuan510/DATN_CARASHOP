@@ -33,7 +33,7 @@
 			</div>
 			<div class="col-3 col-lg-3 d-flex flex-row-reverse">
 				<div id="mobile">
-					<form method="get">
+					 
 						<div class="lg-bag" id="searchToggle">
 							<a href="#"> <i class="fa-solid fa-magnifying-glass"></i>
 							</a>
@@ -41,7 +41,7 @@
 							<div class="form-inline position-absolute">
 								<input type="text" class="form-control" id="keyword"
 									name="keyword" value="${keyword }" placeholder="tên sản phẩm" />
-								<button type="submit" class="normal" >
+								<button type="submit" id="btnSearch" name="btnSearch" class="normal" >
 									<i id="searchIcon" class="fa-solid fa-magnifying-glass"
 										style="color: #ffffff; font-size: 20px;"></i>
 								</button>
@@ -49,7 +49,7 @@
 							</div>
 
 						</div>
-					</form>
+					
 					<div class="dropdown show">
 						<a href="#" role="button" id="dropdownMenuLink"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

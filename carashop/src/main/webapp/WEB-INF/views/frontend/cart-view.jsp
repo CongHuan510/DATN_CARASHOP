@@ -59,7 +59,7 @@
 								<div class="mb-4">
 									<h4 align="center"
 										class="page-title text-truncate text-dark font-weight-medium mb-1">
-										<span> Tổng sản phẩm: ${message } </span>
+										<span id="message"> Tổng sản phẩm: ${message} </span>
 									</h4>
 								</div>
 								<div class="table-responsive">
@@ -92,9 +92,10 @@
 																	onclick="updateProductQuantity(${item.productId }, -1, '${item.size}')"
 																	value="-">-</button>
 																<strong> <span class="quantity-input"
-																	id="productQuantity_${item.productId}">
+																	id="productQuantity_${item.productId}_${item.size.trim()}">
 																		${item.quantity} </span>
 																</strong>
+
 																<button class="quantity-button plus"
 																	onclick="updateProductQuantity(${item.productId }, 1, '${item.size}')"
 																	value="+">+</button>
@@ -104,9 +105,8 @@
 													</td>
 													<td>${item.size }</td>
 													<td><fmt:formatNumber value="${item.price }"
-															pattern="#,##0₫" />
-													</td>
-													<td id="productTotalPrice_${item.productId}"><fmt:formatNumber
+															pattern="#,##0₫" /></td>
+													<td id="productTotalPrice_${item.productId}_${item.size.trim()}"><fmt:formatNumber
 															value="${item.price * item.quantity }" pattern="#,##0₫" /></td>
 													<td align="center"><a
 														href="${classpath}/product-cart-delete/${item.productId}/${item.size}"
@@ -236,15 +236,19 @@
                 $("#totalCartProductsId").html(totalProducts);
                 
                 // Cập nhật số lượng sau khi bấm nút -, +
-                $("#productQuantity_" + jsonResult.productId).html(jsonResult.newQuantity);
-
+                var trimmedSize = jsonResult.size.trim();
+			    $("#productQuantity_" + jsonResult.productId + "_" + trimmedSize).html(jsonResult.newQuantity);
+			  
                 // Định dạng giá trị thành tiền mới
                 let formattedNewTotalPrice = formatCurrency(jsonResult.newTotalPrice);
-                $("#productTotalPrice_" + jsonResult.productId).html(formattedNewTotalPrice + "₫");
+                $("#productTotalPrice_" + jsonResult.productId + "_" + trimmedSize).html(formattedNewTotalPrice + "₫");
 
                 // Định dạng tổng thành tiền cho toàn bộ giỏ hàng
                 let formattedTotalCartPrice = formatCurrency(jsonResult.totalCartPrice);
                 $("#totalCartPriceId").html(formattedTotalCartPrice + "₫");
+                
+                let message = "Tổng sản phẩm: Có tổng cộng " + jsonResult.totalCartProducts + " sản phẩm trong giỏ hàng của bạn";
+                $("#message").html(message);
             },
 
             error: function(jqXhr, textStatus, errorMessage) {
@@ -256,9 +260,14 @@
         });
     }
 
-    function formatCurrency(value) {
-        return new Intl.NumberFormat('vi-VN', { maximumSignificantDigits: 3 }).format(value);
+    function formatCurrency(value) {       
+        let number = parseFloat(value);
+        return number.toLocaleString('vi-VN', {
+            minimumFractionDigits: 0,  
+            maximumFractionDigits: 0   
+        });
     }
+
 </script>
 
 	<script>

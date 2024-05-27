@@ -259,10 +259,10 @@
 				itemsOnPage: ${productSearch.sizeOfPage},
 				cssStyle: 'light-theme',
 				onPageClick: function(pageNumber, event) {
-					event.preventDefault();
+					
 					$('#currentPage').val(pageNumber);
 					$('#btnSearch').trigger('click');
-					return false;
+					
 				},
 			});
 		});

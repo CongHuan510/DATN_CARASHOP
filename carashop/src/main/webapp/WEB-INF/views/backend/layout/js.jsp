@@ -53,7 +53,7 @@
 				labels : [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 						"Aug", "Sep", "Oct", "Nov", "Dec" ],
 				datasets : [ {
-					label : "Sales ($)",
+					label : "Tổng (₫)",
 					fill : true,
 					backgroundColor : gradient,
 					borderColor : window.theme.primary,
@@ -88,8 +88,8 @@
 							stepSize : 50000, // Bước giữa các mốc giá trị trên trục Y
 							maxTicksLimit : 4, // Giới hạn số lượng mốc hiển thị trên trục Y
 							callback : function(value, index, values) {
-								return '$' + value.toLocaleString(); // Định dạng mốc giá trị hiển thị
-							}
+								return value.toLocaleString() + '₫'; // Định dạng mốc giá trị hiển thị
+							}		
 						},
 						display : true,
 						borderDash : [ 3, 3 ],
@@ -120,7 +120,7 @@
 				labels : [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 						"Aug", "Sep", "Oct", "Nov", "Dec" ],
 				datasets : [ {
-					label : "Sales ($)",
+					label : "Tổng",
 					fill : true,
 					backgroundColor : gradient,
 					borderColor : window.theme.primary,
@@ -183,7 +183,7 @@
 				labels : [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 						"Aug", "Sep", "Oct", "Nov", "Dec" ],
 				datasets : [ {
-					label : "Sales ($)",
+					label : "Tổng",
 					fill : true,
 					backgroundColor : gradient,
 					borderColor : window.theme.primary,

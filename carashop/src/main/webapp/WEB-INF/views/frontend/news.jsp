@@ -27,13 +27,22 @@
 	<section id="page-header" class="news-header">
 		<div class="container">
 			<h2>Tin tức</h2>
-			<nav aria-label="breadcrumb">
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="${classpath }/index">Trang
-							chủ</a></li>
-					<li class="breadcrumb-item active" aria-current="page">Tin tức</li>
-				</ol>
-			</nav>
+
+		</div>
+	</section>
+
+	<section class="section-m1" style="margin-bottom: 0px !important;">
+		<div class="container">
+			<div class="row">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="${classpath }/index">Trang
+								chủ</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Tin
+							tức</li>
+					</ol>
+				</nav>
+			</div>
 		</div>
 	</section>
 

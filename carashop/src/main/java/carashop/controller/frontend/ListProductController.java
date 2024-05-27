@@ -1,12 +1,10 @@
 package carashop.controller.frontend;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,8 +49,7 @@ public class ListProductController extends BaseController implements Jw27Constan
 
 
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
-	public String listProduct(final Model model, final HttpServletRequest request, final HttpServletResponse response)
-			throws IOException {
+	public String listProduct(final Model model, final HttpServletRequest request) {
 		SearchModel productSearch = new SearchModel();
 
 		// Tim theo category

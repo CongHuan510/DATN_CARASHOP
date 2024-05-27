@@ -62,11 +62,14 @@ public class FavoriteController extends BaseController {
 	            discounts.add(discount);
 	        }
 	        model.addAttribute("discounts", discounts);
-	        model.addAttribute("favoriteProducts", favoriteProducts);        
+	        model.addAttribute("favoriteProducts", favoriteProducts); 
+	        String errorMessage = "Bạn chưa có sản phẩm yêu thích nào!";
+	        model.addAttribute("errorMessage", errorMessage);
 	    } else {
 	    	String errorMessage = "Bạn chưa có sản phẩm yêu thích nào!";
 	        model.addAttribute("errorMessage", errorMessage);
 	    }
+		
 	    return "frontend/favorite";
 	}
 
